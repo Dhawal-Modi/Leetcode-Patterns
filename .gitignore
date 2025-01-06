@@ -6,3 +6,5 @@
 /.idea/modules.xml
 /src/.idea/misc.xml
 /.idea/misc.xml
+.idea*
+/src/test.py
