@@ -1,4 +1,9 @@
-# Leetcode 112 Path sum
+# Leetcode 113 Path Sum II
+
+from collections import deque
+from typing import Optional, List
+
+
 # Definition for a binary tree node.
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -6,30 +11,29 @@ class TreeNode:
         self.left = left
         self.right = right
 
-from typing import Optional
-from collections import deque
-
 class Solution:
-    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
         if root is None:
-            return False
+            return []
 
+        result = []
         q = deque()
-        q.append((root,root.val))
+        path = [root.val]
+        q.append((root,root.val,path))
 
         while q:
-            current_node, current_sum = q.popleft()
+            current_node, current_sum , current_path = q.popleft()
 
             if not current_node.left and not current_node.right and current_sum == targetSum:
-                return True
+                result.append(current_path)
 
             if current_node.left:
-                q.append((current_node.left,current_sum + current_node.left.val))
+                q.append((current_node.left, current_sum + current_node.left.val,current_path + [current_node.left.val]))
 
             if current_node.right:
-                q.append((current_node.right,current_sum + current_node.right.val))
+                q.append((current_node.right, current_sum + current_node.right.val,current_path + [current_node.right.val]))
 
-        return False
+        return result
 
 if __name__ == "__main__":
     sol = Solution()
@@ -42,4 +46,12 @@ if __name__ == "__main__":
     root.right.left = TreeNode(13)
     root.right.right = TreeNode(4)
     root.right.right.right = TreeNode(1)
-    print("Level order traversal: " + str(sol.hasPathSum(root,22)))
+    root.right.right.left = TreeNode(5)
+    print("Level order traversal: " + str(sol.pathSum(root,22)))
+
+
+
+
+
+
+
