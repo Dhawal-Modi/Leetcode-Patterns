@@ -10,3 +10,5 @@
 /src/test.py
 .aider*
 *.iml
+*.idea
+*.claude
